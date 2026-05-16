@@ -8,7 +8,7 @@ import json
 # =========================================================
 
 st.set_page_config(
-    page_title="Pharma Data Validator",
+    page_title="Data Schema Validator",
     page_icon="💊",
     layout="wide"
 )
@@ -29,13 +29,13 @@ BUILTIN_SCHEMAS = {
     # ── 1. Brand Master ──────────────────────────────────
     "Brand Master": {
         "columns": {
-            "name":            {"type": "varchar",   "max_length": 20,  "nullable": False, "unique": False, "case_insensitive_unique": False},
-            "short-name":      {"type": "varchar",   "max_length": 10,  "nullable": True,  "unique": False, "case_insensitive_unique": True},
+            "name":            {"type": "varchar",   "max_length": 20,  "nullable": False, "unique": False, "case_insensitive_unique": True},
+            "short-name":      {"type": "varchar",   "max_length": 10,  "nullable": False,  "unique": True, "case_insensitive_unique": True},
             "remark":          {"type": "varchar",   "max_length": 255, "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "logo-image":      {"type": "varchar",   "max_length": 255, "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "is-active":       {"type": "int",                          "nullable": False, "unique": False, "case_insensitive_unique": False},
             "inactive-reason": {"type": "varchar",   "max_length": 45,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
-            "is-validated":    {"type": "int",                          "nullable": True,  "unique": False, "case_insensitive_unique": False},
+            "is-validated":    {"type": "int",                          "nullable": False,  "unique": False, "case_insensitive_unique": False},
             "created-by":      {"type": "varchar",   "max_length": 255, "nullable": False, "unique": False, "case_insensitive_unique": False},
             "updated-by":      {"type": "varchar",   "max_length": 255, "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "created-at":      {"type": "timestamp",                    "nullable": True,  "unique": False, "case_insensitive_unique": False},
@@ -61,7 +61,7 @@ BUILTIN_SCHEMAS = {
             "state-id":        {"type": "int",                          "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "pincode":         {"type": "int",                          "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "inactive-reason": {"type": "varchar",   "max_length": 45,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
-            "is-validated":    {"type": "int",                          "nullable": True,  "unique": False, "case_insensitive_unique": False},
+            "is-validated":    {"type": "int",                          "nullable": False,  "unique": False, "case_insensitive_unique": False},
             "is-active":       {"type": "int",                          "nullable": False, "unique": False, "case_insensitive_unique": False},
             "created-at":      {"type": "timestamp",                    "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "created-by":      {"type": "varchar",   "max_length": 255, "nullable": False, "unique": False, "case_insensitive_unique": False},
@@ -73,11 +73,11 @@ BUILTIN_SCHEMAS = {
     # ── 3. Product Master ────────────────────────────────
     "Product Master": {
         "columns": {
-            "name":                    {"type": "varchar", "max_length": 255, "nullable": False, "unique": False, "case_insensitive_unique": False},
-            "product-category-id":     {"type": "int",                        "nullable": True,  "unique": False, "case_insensitive_unique": False},
-            "short-name":              {"type": "varchar", "max_length": 50,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
+            "name":                    {"type": "varchar", "max_length": 255, "nullable": False, "unique": True, "case_insensitive_unique": True},
+            "product-category-id":     {"type": "int",                        "nullable": False,  "unique": False, "case_insensitive_unique": False},
+            "short-name":              {"type": "varchar", "max_length": 50,  "nullable": False,  "unique": True, "case_insensitive_unique": True},
             "remark":                  {"type": "varchar", "max_length": 255, "nullable": True,  "unique": False, "case_insensitive_unique": False},
-            "is-validated":            {"type": "int",                        "nullable": True,  "unique": False, "case_insensitive_unique": False},
+            "is-validated":            {"type": "int",                        "nullable": False,  "unique": False, "case_insensitive_unique": False},
             "is-active":               {"type": "int",                        "nullable": False, "unique": False, "case_insensitive_unique": False},
             "inactive-reason":         {"type": "varchar", "max_length": 45,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "created-by":              {"type": "varchar", "max_length": 255, "nullable": False, "unique": False, "case_insensitive_unique": False},
@@ -95,7 +95,7 @@ BUILTIN_SCHEMAS = {
             "product-category-id": {"type": "int",                        "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "short-name":          {"type": "varchar", "max_length": 50,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "remark":              {"type": "varchar", "max_length": 255, "nullable": True,  "unique": False, "case_insensitive_unique": False},
-            "is-validated":        {"type": "int",                        "nullable": True,  "unique": False, "case_insensitive_unique": False},
+            "is-validated":        {"type": "int",                        "nullable": False,  "unique": False, "case_insensitive_unique": False},
             "is-active":           {"type": "int",                        "nullable": False, "unique": False, "case_insensitive_unique": False},
             "inactive-reason":     {"type": "varchar", "max_length": 45,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "created-by":          {"type": "varchar", "max_length": 255, "nullable": False, "unique": False, "case_insensitive_unique": False},
@@ -108,12 +108,12 @@ BUILTIN_SCHEMAS = {
     # ── 5. Use Master ────────────────────────────────────
     "Use Master": {
         "columns": {
-            "name":               {"type": "varchar", "max_length": 255,  "nullable": False, "unique": False, "case_insensitive_unique": False},
+            "name":               {"type": "varchar", "max_length": 255,  "nullable": False, "unique": True, "case_insensitive_unique": True},
             "short-description":  {"type": "varchar", "max_length": 255,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "long-description":   {"type": "varchar", "max_length": 1000, "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "course-duration":    {"type": "varchar", "max_length": 255,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "remark":             {"type": "varchar", "max_length": 255,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
-            "is-validated":       {"type": "int",                         "nullable": True,  "unique": False, "case_insensitive_unique": False},
+            "is-validated":       {"type": "int",                         "nullable": False,  "unique": False, "case_insensitive_unique": False},
             "is-active":          {"type": "int",                         "nullable": False, "unique": False, "case_insensitive_unique": False},
             "inactive-reason":    {"type": "varchar", "max_length": 45,   "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "created-by":         {"type": "varchar", "max_length": 255,  "nullable": False, "unique": False, "case_insensitive_unique": False},
@@ -148,18 +148,20 @@ BUILTIN_SCHEMAS = {
             "updated-by":        {"type": "varchar", "max_length": 255, "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "created-at":        {"type": "timestamp",                  "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "updated-at":        {"type": "timestamp",                  "nullable": True,  "unique": False, "case_insensitive_unique": False},
+            "updated-at":        {"type": "timestamp",                  "nullable": True,  "unique": False, "case_insensitive_unique": False},
+            "ranking":           {"type":"int",                         "nullable":True,   "unique":False,  "case_insensitive_unique": False},
         }
     },
 
     # ── 8. Variant Master ────────────────────────────────
     "Variant Master": {
         "columns": {
-            "name":            {"type": "varchar", "max_length": 255, "nullable": False, "unique": False, "case_insensitive_unique": False},
+            "name":            {"type": "varchar", "max_length": 255, "nullable": False, "unique": True, "case_insensitive_unique": True},
             "type":            {"type": "enum",    "allowed_values": ["master", "custom"],
                                                    "nullable": False, "unique": False, "case_insensitive_unique": False},
             "inactive-reason": {"type": "varchar", "max_length": 45,  "nullable": True,  "unique": False, "case_insensitive_unique": False},
             "remark":          {"type": "varchar", "max_length": 255, "nullable": True,  "unique": False, "case_insensitive_unique": False},
-            "is-validated":    {"type": "int",                        "nullable": True,  "unique": False, "case_insensitive_unique": False},
+            "is-validated":    {"type": "int",                        "nullable": False,  "unique": False, "case_insensitive_unique": False},
             "is-active":       {"type": "int",                        "nullable": False, "unique": False, "case_insensitive_unique": False},
             "created-by":      {"type": "varchar", "max_length": 255, "nullable": False, "unique": False, "case_insensitive_unique": False},
             "updated-by":      {"type": "varchar", "max_length": 255, "nullable": True,  "unique": False, "case_insensitive_unique": False},
